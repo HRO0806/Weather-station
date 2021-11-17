@@ -1,0 +1,15 @@
+*
+{
+    padding: 0;
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.header {
+    color: white;
+    font-size: 25px;
+    background-image: linear-gradient(to right, #2E55B5, #1A0044 );
+    width: 100%;
+    height: 75px;
+    text-align: center;
+}
