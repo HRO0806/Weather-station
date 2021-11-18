@@ -1,7 +1,9 @@
-var searchButton = document.querySelector("#button")
+var searchButton = document.querySelector("#button");
+var dataDisplay = document.querySelector(".data-display");
+var test = "I work!";
 
-var test = function() {
-    console.log("I work!")
-}
+var displayContent = function() {
+    dataDisplay.innerHTML = "<p>" + test + "</p>";
+};
 
-searchButton.addEventListener('click', test);
+searchButton.addEventListener('click', displayContent);
