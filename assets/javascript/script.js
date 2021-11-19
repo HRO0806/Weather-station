@@ -45,7 +45,7 @@ var weatherInfo = function(lat, lon, place) {
             var temp = "Temp: " + data.current.temp;
             var wind = "Wind: " + data.current.wind_speed;
             var humidity = "Humidity: " + data.current.humidity;
-            var uvIndex = "UV Index: " + data.current.uvi;
+            var uvIndex = data.current.uvi;
 
             statsOne = "Temp: " + data.daily[1].temp.day + " F<br> Wind: " + data.daily[1].wind_speed + " MPH<br> Humidity: " + data.daily[1].humidity + "%";           
             statsTwo = "Temp: " + data.daily[2].temp.day + " F<br> Wind: " + data.daily[2].wind_speed + " MPH<br> Humidity: " + data.daily[2].humidity + "%";
@@ -53,9 +53,29 @@ var weatherInfo = function(lat, lon, place) {
             statsFour = "Temp: " + data.daily[4].temp.day + " F<br> Wind: " + data.daily[4].wind_speed + " MPH<br> Humidity: " + data.daily[4].humidity + "%";
             statsFive = "Temp: " + data.daily[5].temp.day + " F<br> Wind: " + data.daily[5].wind_speed + " MPH<br> Humidity: " + data.daily[5].humidity + "%";
 
+            dataDisplay.innerHTML = "<div class=info-container> <p class='city'>" + city + "</p> <p class=info>" + temp + " F<br>" + wind + " MPH<br>" + humidity + "%<br> UV Index: <span id='uvi'>" + uvIndex + "</span></p> </div>";
 
+            var uviColorChange = document.querySelector("#uvi");
+            uviColorChange.style.padding = "3px";
+            uviColorChange.style.borderRadius = "15%";
 
-            dataDisplay.innerHTML = "<div class=info-container> <p class='city'>" + city + "</p> <p class=info>" + temp + " F<br>" + wind + " MPH<br>" + humidity + "%<br>" + uvIndex + "</p> </div>";
+            if (data.current.uvi >= 0 && data.current.uvi <= 2) {
+              uviColorChange.style.backgroundColor = "green";
+              console.log("green");
+            }
+            else if (data.current.uvi >= 3 && data.current.uvi <= 5) {
+              uviColorChange.style.backgroundColor = "yellow";
+              console.log("yellow");
+            }
+            else if (data.current.uvi >= 6 && data.current.uvi <= 7) {
+              uviColorChange.style.backgroundColor = "orange";
+              console.log("orange");
+            }
+            else if (data.current.uvi >= 8) {
+              uviColorChange.style.backgroundColor = "red";
+              console.log("red");
+            }
+
 
             dayOne.innerHTML = statsOne;
             dayTwo.innerHTML = statsTwo;
