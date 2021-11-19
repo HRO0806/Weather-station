@@ -1,15 +1,15 @@
 var searchButton = document.querySelector("#button");
 var dataDisplay = document.querySelector(".data-display");
 var city = "City";
-var temp = "Temp:";
-var wind = "Wind:";
-var humidity = "Humidity:";
-var uvIndex = "UV Index:";
-var lat = 33.44;
-var lon = -94.04;
+var temp = "Temp: ";
+var wind = "Wind: ";
+var humidity = "Humidity: ";
+var uvIndex = "UV Index: ";
 
 //This function fetches and formats the data from the api
 var weatherInfo = function() {
+    var lat = 33.44;
+    var lon = -94.04;
     var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=05dfe3da95decbbbc50936bfd9d8b3b6"
 
     fetch(apiUrl)
@@ -18,11 +18,12 @@ var weatherInfo = function() {
         if (response.ok) {
           console.log(response);
           response.json().then(function(data) {
-            city = "Shreveport LA"
+            var currentDate = moment().format('dddd MMM DD');
+            city = "Shreveport " + "(" + currentDate + ")";
             temp = "Temp: " + data.current.temp;
             wind = "Wind: " + data.current.wind_speed;
             humidity = "Humidity: " + data.current.humidity;
-            uvIndex = "UV Index: " + data.current.uvi;    
+            uvIndex = "UV Index: " + data.current.uvi;  
             console.log(data);
           });
         }
