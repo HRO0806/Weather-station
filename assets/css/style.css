@@ -48,6 +48,7 @@ body {
     width: 325px;
     height: 50px;
     margin-left: -12px;
+    border-radius: 5px;
 }
 
 .btn {
@@ -62,12 +63,25 @@ body {
     margin-left: -12px;
     font-size: 18px;
     color: #fff;
+    border-radius: 5px;
+}
+
+.search {
+    background: grey;
+    margin-top: 5px;
+    width: 325px;
+    height: 50px;
+    margin-left: -12px;
+    border-radius: 5px;
+    position: relative;
+    left: 60px;
+    top: 10px;
 }
 
 .data-display {
     position: relative;
     left: 400px;
-    top: -170px;
+    top: -505px;
     width: 1120px;
     height: 275px;
     border: 2px solid #000000;
@@ -76,7 +90,7 @@ body {
 .five-day {
     position: relative;
     left: 400px;
-    top: -150px;
+    top: -480px;
 }
 
 .five-day-cards-container {

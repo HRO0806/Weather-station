@@ -1,5 +1,10 @@
 var searchButton = document.querySelector("#button");
 var dataDisplay = document.querySelector(".data-display");
+var searchHistoryOne = document.querySelector("#search-one");
+var searchHistoryTwo = document.querySelector("#search-two");
+var searchHistoryThree = document.querySelector("#search-three");
+var searchHistoryFour = document.querySelector("#search-four");
+var searchHistoryFive = document.querySelector("#search-five");
 var dayOne = document.querySelector("#card-one");
 var dayTwo = document.querySelector("#card-two");
 var dayThree = document.querySelector("#card-three");
@@ -7,7 +12,20 @@ var dayFour = document.querySelector("#card-four");
 var dayFive = document.querySelector("#card-five");
 var lat = "";
 var lon = "";
+var savedLocations = [];
+var dateString = "";
 
+/*var createFutureDate = function (dayNumber) {
+  var targetDate = new Date();
+  targetDate.setDate(targetDate.getDate() + dayNumber);
+
+  var dd = targetDate.getDate();
+  var mm = targetDate.getMonth() + 1;
+  var yyyy = targetDate.getFullYear();
+
+  dateString = mm + "/" + dd + "/" + yyyy;
+  console.log(dateString);
+};*/
 
 //This function fetches the location API and allows the program to 
 // associate a location with longitude and latitude coardinates.
@@ -46,13 +64,27 @@ var weatherInfo = function(lat, lon, place) {
             var wind = "Wind: " + data.current.wind_speed;
             var humidity = "Humidity: " + data.current.humidity;
             var uvIndex = data.current.uvi;
+             
+            var nextDateOne = moment().add(1,'days').format('dddd MMM DD');
+            statsOne = nextDateOne + "<br>Temp: " + data.daily[1].temp.day + " F<br> Wind: " + data.daily[1].wind_speed + " MPH<br> Humidity: " + data.daily[1].humidity + "%";           
+            console.log(nextDateOne)
+            
+            var nextDateTwo = moment().add(2,'days').format('dddd MMM DD');
+            statsTwo = nextDateTwo + "<br>Temp: " + data.daily[2].temp.day + " F<br> Wind: " + data.daily[2].wind_speed + " MPH<br> Humidity: " + data.daily[2].humidity + "%";
+            console.log(nextDateTwo)
 
-            statsOne = "Temp: " + data.daily[1].temp.day + " F<br> Wind: " + data.daily[1].wind_speed + " MPH<br> Humidity: " + data.daily[1].humidity + "%";           
-            statsTwo = "Temp: " + data.daily[2].temp.day + " F<br> Wind: " + data.daily[2].wind_speed + " MPH<br> Humidity: " + data.daily[2].humidity + "%";
-            statsThree = "Temp: " + data.daily[3].temp.day + " F<br> Wind: " + data.daily[3].wind_speed + " MPH<br> Humidity: " + data.daily[3].humidity + "%";
-            statsFour = "Temp: " + data.daily[4].temp.day + " F<br> Wind: " + data.daily[4].wind_speed + " MPH<br> Humidity: " + data.daily[4].humidity + "%";
-            statsFive = "Temp: " + data.daily[5].temp.day + " F<br> Wind: " + data.daily[5].wind_speed + " MPH<br> Humidity: " + data.daily[5].humidity + "%";
+            var nextDateThree = moment().add(3,'days').format('dddd MMM DD');
+            statsThree = nextDateThree + "<br>Temp: " + data.daily[3].temp.day + " F<br> Wind: " + data.daily[3].wind_speed + " MPH<br> Humidity: " + data.daily[3].humidity + "%";
+            console.log(nextDateThree)
 
+            var nextDateFour = moment().add(4,'days').format('dddd MMM DD');
+            statsFour = nextDateFour + "<br>Temp: " + data.daily[4].temp.day + " F<br> Wind: " + data.daily[4].wind_speed + " MPH<br> Humidity: " + data.daily[4].humidity + "%";
+            console.log(nextDateFour)
+
+            var nextDateFive = moment().add(5,'days').format('dddd MMM DD');
+            statsFive = nextDateFive + "<br>Temp: " + data.daily[5].temp.day + " F<br> Wind: " + data.daily[5].wind_speed + " MPH<br> Humidity: " + data.daily[5].humidity + "%";
+            console.log(nextDateFive)
+  
             dataDisplay.innerHTML = "<div class=info-container> <p class='city'>" + city + "</p> <p class=info>" + temp + " F<br>" + wind + " MPH<br>" + humidity + "%<br> UV Index: <span id='uvi'>" + uvIndex + "</span></p> </div>";
 
             var uviColorChange = document.querySelector("#uvi");
@@ -61,21 +93,16 @@ var weatherInfo = function(lat, lon, place) {
 
             if (data.current.uvi >= 0 && data.current.uvi <= 2) {
               uviColorChange.style.backgroundColor = "green";
-              console.log("green");
             }
             else if (data.current.uvi >= 3 && data.current.uvi <= 5) {
               uviColorChange.style.backgroundColor = "yellow";
-              console.log("yellow");
             }
             else if (data.current.uvi >= 6 && data.current.uvi <= 7) {
               uviColorChange.style.backgroundColor = "orange";
-              console.log("orange");
             }
             else if (data.current.uvi >= 8) {
               uviColorChange.style.backgroundColor = "red";
-              console.log("red");
             }
-
 
             dayOne.innerHTML = statsOne;
             dayTwo.innerHTML = statsTwo;
@@ -83,6 +110,16 @@ var weatherInfo = function(lat, lon, place) {
             dayFour.innerHTML = statsFour;
             dayFive.innerHTML = statsFive;
 
+            savedLocations.push(localStorage.getItem('array'))
+
+            savedLocations.push(place);
+
+            /*searchHistoryTwo.textContent = savedLocations[1];
+            searchHistoryThree.textContent = savedLocations[2];
+            searchHistoryFour.textContent = savedLocations[3];
+            searchHistoryFive.textContent = savedLocations[4];*/
+
+            localStorage.setItem('array', savedLocations);
             console.log(data);
           });
         }
