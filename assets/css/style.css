@@ -28,6 +28,7 @@ body {
     text-align: center;
 }
 
+/*This css rule establishes the width of the menue on the left side of the screen*/
 .left-column {
     width: 325px;
 }
@@ -37,12 +38,14 @@ body {
     margin-left: 50px;
 }
 
+/*This css rule establishes the styles of the search label*/
 .city-search-label {
     margin-top: 15px;
     font-weight: bold;
     margin-left: -12px;
 }
 
+/*This css rule establish the styles for the input feild where the user enters a city*/
 .city-search-input {
     margin-top: 5px;
     width: 325px;
@@ -51,6 +54,7 @@ body {
     border-radius: 5px;
 }
 
+/*This css rule contains the styleing for the search button*/
 .btn {
     background-color: #4A8FE4;
     width: 325px;
@@ -66,6 +70,7 @@ body {
     border-radius: 5px;
 }
 
+/*This css rule establishes the styles for the search history containers*/
 .search {
     background: grey;
     margin-top: 5px;
@@ -80,6 +85,7 @@ body {
     cursor: pointer;
 }
 
+/*This css rule establishes the styles for the area that displays current weather data*/
 .data-display {
     background-color: #E6E0DF;
     position: relative;
@@ -90,46 +96,52 @@ body {
     border: 2px solid #000000;
 }
 
+/*This css rule establishes the overall styles of the container that holds the 
+five-day forecast as well as the h3 element that acts as it label*/
 .five-day {
     position: relative;
     left: 400px;
     top: -480px;
 }
 
+/*This css rule establishes the overall positioning of the five-day forecast cards*/
 .five-day-cards-container {
     display: flex;
     margin: -15px;
 }
 
+/*This css rule establishes the styles of the five-day forecast cards themselves*/
 .five-day-card {
     background-color: #253445;
     width: 185px;
     height: 265px;
     flex-direction: row;
     margin: 20px; 
+    color: #ffffff;
+    font-size: 20px;
 }
 
+/*This css rule establishes the styles for the city, date, and 
+icon that are at the top of the page*/
 .city {
     font-size: 50px;
     margin-left: 20px;
     margin-bottom: -45px;
 }
 
+/*This css rule establishes the styles for the rest of the current weather data*/
 .info {
     font-size: 30px;
     margin-left: 20px;
 }
 
-.five-day-card {
-    color: #ffffff;
-    font-size: 20px;
-}
-
+/*This css rule establishes the size of the weather icon displayed with the current data*/
 .icon {
     width: 90px;
     height: 90px;
 }
 
+/*This css rule gives the margin on the icons that apear in the five-day forecast*/
 .card-icon {
     margin-bottom: -30px;
 }
