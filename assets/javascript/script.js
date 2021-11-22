@@ -13,24 +13,20 @@ var dayFive = document.querySelector("#card-five");
 var lat = "";
 var lon = "";
 var savedLocations = [];
-var dateString = "";
+var placeInput = document.querySelector(".city-search-input");
 
-/*var createFutureDate = function (dayNumber) {
-  var targetDate = new Date();
-  targetDate.setDate(targetDate.getDate() + dayNumber);
+savedLocations.push(localStorage.getItem('array'));
+savedLocations.pop();
 
-  var dd = targetDate.getDate();
-  var mm = targetDate.getMonth() + 1;
-  var yyyy = targetDate.getFullYear();
-
-  dateString = mm + "/" + dd + "/" + yyyy;
-  console.log(dateString);
-};*/
+searchHistoryOne.textContent = savedLocations[1];
+searchHistoryTwo.textContent = savedLocations[2];
+searchHistoryThree.textContent = savedLocations[3];
+searchHistoryFour.textContent = savedLocations[4];
+searchHistoryFive.textContent = savedLocations[5];
 
 //This function fetches the location API and allows the program to 
-// associate a location with longitude and latitude coardinates.
+//associate a location with longitude and latitude coardinates.
 var locationInfo = function() {
-  var placeInput = document.querySelector(".city-search-input");
   var place = placeInput.value.trim();
   var apiUrlLocation = "http://api.positionstack.com/v1/forward?access_key=3b9ca6a31d1f5a6da350f14f2d1c4e44&query=" + place + "&outputjson"
   fetch(apiUrlLocation)
@@ -58,6 +54,14 @@ var weatherInfo = function(lat, lon, place) {
         if (response.ok) {
           console.log(response);
           response.json().then(function(data) {
+
+            var currentIconUrl = "http://openweathermap.org/img/wn/" + data.daily[0].weather[0].icon + "@2x.png";
+            var dayOneIconUrl = "http://openweathermap.org/img/wn/" + data.daily[1].weather[0].icon + "@2x.png";
+            var dayTwoIconUrl = "http://openweathermap.org/img/wn/" + data.daily[2].weather[0].icon + "@2x.png";
+            var dayThreeIconUrl = "http://openweathermap.org/img/wn/" + data.daily[3].weather[0].icon + "@2x.png";
+            var dayFourIconUrl = "http://openweathermap.org/img/wn/" + data.daily[4].weather[0].icon + "@2x.png";
+            var dayFiveIconUrl = "http://openweathermap.org/img/wn/" + data.daily[5].weather[0].icon + "@2x.png";
+
             var currentDate = moment().format('dddd MMM DD');
             var city = place + " (" + currentDate + ")";
             var temp = "Temp: " + data.current.temp;
@@ -66,26 +70,23 @@ var weatherInfo = function(lat, lon, place) {
             var uvIndex = data.current.uvi;
              
             var nextDateOne = moment().add(1,'days').format('dddd MMM DD');
-            statsOne = nextDateOne + "<br>Temp: " + data.daily[1].temp.day + " F<br> Wind: " + data.daily[1].wind_speed + " MPH<br> Humidity: " + data.daily[1].humidity + "%";           
-            console.log(nextDateOne)
+            statsOne = nextDateOne + "<div><img class='card-icon icon' src='" + dayOneIconUrl + "'/></div><br>Temp: " + data.daily[1].temp.day + " F<br> Wind: " + data.daily[1].wind_speed + " MPH<br> Humidity: " + data.daily[1].humidity + "%";           
             
             var nextDateTwo = moment().add(2,'days').format('dddd MMM DD');
-            statsTwo = nextDateTwo + "<br>Temp: " + data.daily[2].temp.day + " F<br> Wind: " + data.daily[2].wind_speed + " MPH<br> Humidity: " + data.daily[2].humidity + "%";
-            console.log(nextDateTwo)
+            statsTwo = nextDateTwo + "<div><img class='card-icon icon' src='" + dayTwoIconUrl + "'/></div><br>Temp: " + data.daily[2].temp.day + " F<br> Wind: " + data.daily[2].wind_speed + " MPH<br> Humidity: " + data.daily[2].humidity + "%";
 
             var nextDateThree = moment().add(3,'days').format('dddd MMM DD');
-            statsThree = nextDateThree + "<br>Temp: " + data.daily[3].temp.day + " F<br> Wind: " + data.daily[3].wind_speed + " MPH<br> Humidity: " + data.daily[3].humidity + "%";
-            console.log(nextDateThree)
+            statsThree = nextDateThree + "<div><img class='card-icon icon' src='" + dayThreeIconUrl + "'/></div><br>Temp: " + data.daily[3].temp.day + " F<br> Wind: " + data.daily[3].wind_speed + " MPH<br> Humidity: " + data.daily[3].humidity + "%";
 
             var nextDateFour = moment().add(4,'days').format('dddd MMM DD');
-            statsFour = nextDateFour + "<br>Temp: " + data.daily[4].temp.day + " F<br> Wind: " + data.daily[4].wind_speed + " MPH<br> Humidity: " + data.daily[4].humidity + "%";
-            console.log(nextDateFour)
+            statsFour = nextDateFour + "<div><img class='card-icon icon' src='" + dayFourIconUrl + "'/></div><br>Temp: " + data.daily[4].temp.day + " F<br> Wind: " + data.daily[4].wind_speed + " MPH<br> Humidity: " + data.daily[4].humidity + "%";
 
             var nextDateFive = moment().add(5,'days').format('dddd MMM DD');
-            statsFive = nextDateFive + "<br>Temp: " + data.daily[5].temp.day + " F<br> Wind: " + data.daily[5].wind_speed + " MPH<br> Humidity: " + data.daily[5].humidity + "%";
-            console.log(nextDateFive)
-  
-            dataDisplay.innerHTML = "<div class=info-container> <p class='city'>" + city + "</p> <p class=info>" + temp + " F<br>" + wind + " MPH<br>" + humidity + "%<br> UV Index: <span id='uvi'>" + uvIndex + "</span></p> </div>";
+            statsFive = nextDateFive + "<div><img class='card-icon icon' src='" + dayFiveIconUrl + "'/></div><br>Temp: " + data.daily[5].temp.day + " F<br> Wind: " + data.daily[5].wind_speed + " MPH<br> Humidity: " + data.daily[5].humidity + "%";
+
+            dataDisplay.innerHTML = "<div class=info-container> <p>  </p> <p class='city'>" + city + "<img id='current-icon' class='icon' src='" + currentIconUrl + "'/></p><br><p class=info>" + temp + " F<br>" + wind + " MPH<br>" + humidity + "%<br> UV Index: <span id='uvi'>" + uvIndex + "</span></p> </div>";
+
+            console.log(place);
 
             var uviColorChange = document.querySelector("#uvi");
             uviColorChange.style.padding = "3px";
@@ -110,14 +111,15 @@ var weatherInfo = function(lat, lon, place) {
             dayFour.innerHTML = statsFour;
             dayFive.innerHTML = statsFive;
 
-            savedLocations.push(localStorage.getItem('array'))
+            savedLocations.push(localStorage.getItem('array'));
+            savedLocations.unshift(place);
+            savedLocations.pop();
 
-            savedLocations.push(place);
-
-            /*searchHistoryTwo.textContent = savedLocations[1];
-            searchHistoryThree.textContent = savedLocations[2];
-            searchHistoryFour.textContent = savedLocations[3];
-            searchHistoryFive.textContent = savedLocations[4];*/
+            searchHistoryOne.textContent = savedLocations[1];
+            searchHistoryTwo.textContent = savedLocations[2];
+            searchHistoryThree.textContent = savedLocations[3];
+            searchHistoryFour.textContent = savedLocations[4];
+            searchHistoryFive.textContent = savedLocations[5];
 
             localStorage.setItem('array', savedLocations);
             console.log(data);
@@ -128,3 +130,28 @@ var weatherInfo = function(lat, lon, place) {
 
 //This event listener triggers the displayContent function
 searchButton.addEventListener('click', locationInfo);
+
+searchHistoryOne.addEventListener('click', function() {
+  placeInput.value = searchHistoryOne.textContent;
+  locationInfo();
+})
+
+searchHistoryTwo.addEventListener('click', function() {
+  placeInput.value = searchHistoryTwo.textContent;
+  locationInfo();
+})
+
+searchHistoryThree.addEventListener('click', function() {
+  placeInput.value = searchHistoryThree.textContent;
+  locationInfo();
+})
+
+searchHistoryFour.addEventListener('click', function() {
+  placeInput.value = searchHistoryFour.textContent;
+  locationInfo();
+})
+
+searchHistoryFive.addEventListener('click', function() {
+  placeInput.value = searchHistoryFive.textContent;
+  locationInfo();
+})

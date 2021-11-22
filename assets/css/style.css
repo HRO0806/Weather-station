@@ -76,9 +76,12 @@ body {
     position: relative;
     left: 60px;
     top: 10px;
+    font-size: 30px;
+    cursor: pointer;
 }
 
 .data-display {
+    background-color: #E6E0DF;
     position: relative;
     left: 400px;
     top: -505px;
@@ -109,6 +112,7 @@ body {
 .city {
     font-size: 50px;
     margin-left: 20px;
+    margin-bottom: -45px;
 }
 
 .info {
@@ -120,4 +124,15 @@ body {
     color: #ffffff;
     font-size: 20px;
 }
+
+.icon {
+    width: 90px;
+    height: 90px;
+}
+
+.card-icon {
+    margin-bottom: -30px;
+}
+
+
 
