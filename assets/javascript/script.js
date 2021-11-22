@@ -19,7 +19,7 @@ var placeInput = document.querySelector(".city-search-input");
 //associate a location with longitude and latitude coardinates.
 var locationInfo = function() {
   var place = placeInput.value.trim();
-  var apiUrlLocation = "http://api.positionstack.com/v1/forward?access_key=3b9ca6a31d1f5a6da350f14f2d1c4e44&query=" + place + "&outputjson"
+  var apiUrlLocation = "https://api.positionstack.com/v1/forward?access_key=3b9ca6a31d1f5a6da350f14f2d1c4e44&query=" + place + "&outputjson"
   fetch(apiUrlLocation)
   .then(function(response) {
       // request was successful
