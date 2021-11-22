@@ -15,15 +15,6 @@ var lon = "";
 var savedLocations = [];
 var placeInput = document.querySelector(".city-search-input");
 
-savedLocations.push(localStorage.getItem('array'));
-savedLocations.pop();
-
-searchHistoryOne.textContent = savedLocations[1];
-searchHistoryTwo.textContent = savedLocations[2];
-searchHistoryThree.textContent = savedLocations[3];
-searchHistoryFour.textContent = savedLocations[4];
-searchHistoryFive.textContent = savedLocations[5];
-
 //This function fetches the location API and allows the program to 
 //associate a location with longitude and latitude coardinates.
 var locationInfo = function() {
