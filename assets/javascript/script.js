@@ -19,15 +19,19 @@ var placeInput = document.querySelector(".city-search-input");
 //associate a location with longitude and latitude coardinates.
 var locationInfo = function() {
   var place = placeInput.value.trim();
-  var apiUrlLocation = "http://api.positionstack.com/v1/forward?access_key=3b9ca6a31d1f5a6da350f14f2d1c4e44&query=" + place + "&outputjson"
+  var apiUrlLocation = "https://api.opencagedata.com/geocode/v1/json?q=" + place + "&key=b32191a77fe54abcaed3bbe958917cb5";
   fetch(apiUrlLocation)
   .then(function(response) {
       // request was successful
       if (response.ok) {
         console.log(response);
         response.json().then(function(data) {
-          lat = data.data[0].latitude;
-          lon = data.data[0].longitude;
+          
+          lat = data.results[0].annotations.DMS.lat.split("°")[0];
+          lon = data.results[0].annotations.DMS.lng.split("°")[0];
+
+          console.log(lat);
+          console.log(lon);
 
           weatherInfo(lat, lon, place);
       });
@@ -55,25 +59,25 @@ var weatherInfo = function(lat, lon, place) {
 
             var currentDate = moment().format('dddd MMM DD');
             var city = place + " (" + currentDate + ")";
-            var temp = "Temp: " + data.current.temp;
+            var temp = "Temp: " + data.current.temp + "°";
             var wind = "Wind: " + data.current.wind_speed;
             var humidity = "Humidity: " + data.current.humidity;
             var uvIndex = data.current.uvi;
              
             var nextDateOne = moment().add(1,'days').format('dddd MMM DD');
-            statsOne = nextDateOne + "<div><img class='card-icon icon' src='" + dayOneIconUrl + "'/></div><br>Temp: " + data.daily[1].temp.day + " F<br> Wind: " + data.daily[1].wind_speed + " MPH<br> Humidity: " + data.daily[1].humidity + "%";           
+            statsOne = nextDateOne + "<div><img class='card-icon icon' src='" + dayOneIconUrl + "'/></div><br>Temp: " + data.daily[1].temp.day + "° F<br> Wind: " + data.daily[1].wind_speed + " MPH<br> Humidity: " + data.daily[1].humidity + "%";           
             
             var nextDateTwo = moment().add(2,'days').format('dddd MMM DD');
-            statsTwo = nextDateTwo + "<div><img class='card-icon icon' src='" + dayTwoIconUrl + "'/></div><br>Temp: " + data.daily[2].temp.day + " F<br> Wind: " + data.daily[2].wind_speed + " MPH<br> Humidity: " + data.daily[2].humidity + "%";
+            statsTwo = nextDateTwo + "<div><img class='card-icon icon' src='" + dayTwoIconUrl + "'/></div><br>Temp: " + data.daily[2].temp.day + "° F<br> Wind: " + data.daily[2].wind_speed + " MPH<br> Humidity: " + data.daily[2].humidity + "%";
 
             var nextDateThree = moment().add(3,'days').format('dddd MMM DD');
-            statsThree = nextDateThree + "<div><img class='card-icon icon' src='" + dayThreeIconUrl + "'/></div><br>Temp: " + data.daily[3].temp.day + " F<br> Wind: " + data.daily[3].wind_speed + " MPH<br> Humidity: " + data.daily[3].humidity + "%";
+            statsThree = nextDateThree + "<div><img class='card-icon icon' src='" + dayThreeIconUrl + "'/></div><br>Temp: " + data.daily[3].temp.day + "° F<br> Wind: " + data.daily[3].wind_speed + " MPH<br> Humidity: " + data.daily[3].humidity + "%";
 
             var nextDateFour = moment().add(4,'days').format('dddd MMM DD');
-            statsFour = nextDateFour + "<div><img class='card-icon icon' src='" + dayFourIconUrl + "'/></div><br>Temp: " + data.daily[4].temp.day + " F<br> Wind: " + data.daily[4].wind_speed + " MPH<br> Humidity: " + data.daily[4].humidity + "%";
+            statsFour = nextDateFour + "<div><img class='card-icon icon' src='" + dayFourIconUrl + "'/></div><br>Temp: " + data.daily[4].temp.day + "° F<br> Wind: " + data.daily[4].wind_speed + " MPH<br> Humidity: " + data.daily[4].humidity + "%";
 
             var nextDateFive = moment().add(5,'days').format('dddd MMM DD');
-            statsFive = nextDateFive + "<div><img class='card-icon icon' src='" + dayFiveIconUrl + "'/></div><br>Temp: " + data.daily[5].temp.day + " F<br> Wind: " + data.daily[5].wind_speed + " MPH<br> Humidity: " + data.daily[5].humidity + "%";
+            statsFive = nextDateFive + "<div><img class='card-icon icon' src='" + dayFiveIconUrl + "'/></div><br>Temp: " + data.daily[5].temp.day + "° F<br> Wind: " + data.daily[5].wind_speed + " MPH<br> Humidity: " + data.daily[5].humidity + "%";
 
             dataDisplay.innerHTML = "<div class=info-container> <p>  </p> <p class='city'>" + city + "<img id='current-icon' class='icon' src='" + currentIconUrl + "'/></p><br><p class=info>" + temp + " F<br>" + wind + " MPH<br>" + humidity + "%<br> UV Index: <span id='uvi'>" + uvIndex + "</span></p> </div>";
 
